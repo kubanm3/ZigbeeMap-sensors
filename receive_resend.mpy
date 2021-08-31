@@ -1,0 +1,13 @@
+import xbee, time
+while True:
+	print("Receiving data...")	
+	print("Press CTRL+C to cancel.")	
+	p = xbee.receive()
+	if p:
+			dest_addr = p['sender_nwk']
+			try:
+				xbee.transmit(dest_addr, p['payload'])
+			except Exception as err:
+				print(err)
+	else:
+        	time.sleep(0.001)   # czekaj 1 milisekunde przed ponownym sprawdzeniem
